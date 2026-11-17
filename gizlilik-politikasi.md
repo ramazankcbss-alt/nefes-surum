@@ -45,6 +45,10 @@ Haftalık özet paylaşımı ve raporu "yorum için gönderme" yalnızca kullan�
 
 Kullanıcı açık rıza vererek Aile Takibi özelliğini başlatırsa, günlük özet (sigara sayısı ve hedef, son 7 günün sayıları, hedef serisi, atlatılan istek sayısı, kupon ve kumbara tutarı, stok sayımı sonucu) telefonda AES-256-GCM ile şifrelenerek Google Firebase (Firestore) sunucusuna gönderilir. Şifre anahtarı yalnızca kullanıcının ve aile kodunu girdiği yakınının telefonunda bulunur; sunucu ve uygulama geliştiricisi içeriği okuyamaz. Konum, sigara saatleri, kilo, sağlık raporları, karbonmonoksit ölçümleri, öğün ve içecek kayıtları paylaşılmaz. Yakının gönderdiği destek mesajları da aynı şekilde şifrelenir. Kullanıcı paylaşımı istediği an durdurabilir; durdurulduğunda sunucudaki şifreli veriler silinir. Aile üyesi modunda hesap açılmaz, kimlik bilgisi istenmez.
 
+## 6b. Destek Ol kampanyası (isteğe bağlı)
+
+Kullanıcı onay vererek kampanyayı başlatırsa, kendi seçtiği kişilere gönderdiği bağlantıda adı, içilmeyen sigara sayısı, programdaki gün sayısı ve davet kodu yer alır. Bu bilgiler bağlantının "#" işaretinden sonraki bölümünde bulunur; sayfayı barındıran sunucuya gönderilmez, yalnızca bağlantıyı açan kişinin tarayıcısında gösterilir. Bağlantıyı açan kişi "Bağışımı yaptım" dediğinde, kişinin kimliği alınmadan yalnızca hangi kuruma destek verildiği ve seçilen hazır mesaj sayaç olarak Firestore'a kaydedilir. Uygulama ve destek sayfası bağış toplamaz, ödeme bilgisi işlemez; bağış, kurumların kendi resmî sitelerinde yapılır.
+
 ## 7. Reklam ve veri satışı
 
 Uygulamada reklam bulunmaz. Kişisel veriler satılmaz, kiralanmaz veya üçüncü kişilerle paylaşılmaz.
