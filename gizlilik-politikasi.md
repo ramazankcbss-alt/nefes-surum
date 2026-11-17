@@ -1,6 +1,6 @@
 # Nefes – Gizlilik Politikası
 
-Son güncelleme: 17 Kasım 2026
+Son güncelleme: 18 Kasım 2026
 
 Nefes, sigarayı kademeli olarak azaltıp bırakmak isteyen kişiler için hazırlanmış kişisel bir takip uygulamasıdır. Bu politika, uygulamanın hangi bilgileri nasıl işlediğini açıklar. Uygulama 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) dikkate alınarak, mümkün olan en az veriyle çalışacak şekilde tasarlanmıştır.
 
@@ -40,6 +40,10 @@ Sağlık raporlarındaki yazılar Google ML Kit ile **telefonda** okunur; rapor 
 ## 6. Kullanıcının başlattığı paylaşımlar
 
 Haftalık özet paylaşımı ve raporu "yorum için gönderme" yalnızca kullanıcı onayladığında, kullanıcının seçtiği uygulama aracılığıyla yapılır. Haftalık özete kilo bilgisi ve raporlar eklenmez.
+
+## 6a. Aile takibi (isteğe bağlı, açık rızaya bağlı)
+
+Kullanıcı açık rıza vererek Aile Takibi özelliğini başlatırsa, günlük özet (sigara sayısı ve hedef, son 7 günün sayıları, hedef serisi, atlatılan istek sayısı, kupon ve kumbara tutarı, stok sayımı sonucu) telefonda AES-256-GCM ile şifrelenerek Google Firebase (Firestore) sunucusuna gönderilir. Şifre anahtarı yalnızca kullanıcının ve QR kodu okuttuğu yakınının telefonunda bulunur; sunucu ve uygulama geliştiricisi içeriği okuyamaz. Konum, sigara saatleri, kilo, sağlık raporları, karbonmonoksit ölçümleri, öğün ve içecek kayıtları paylaşılmaz. Yakının gönderdiği destek mesajları da aynı şekilde şifrelenir. Kullanıcı paylaşımı istediği an durdurabilir; durdurulduğunda sunucudaki şifreli veriler silinir. Aile üyesi modunda hesap açılmaz, kimlik bilgisi istenmez.
 
 ## 7. Reklam ve veri satışı
 
