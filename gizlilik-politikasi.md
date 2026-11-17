@@ -43,7 +43,7 @@ Haftalık özet paylaşımı ve raporu "yorum için gönderme" yalnızca kullan�
 
 ## 6a. Aile takibi (isteğe bağlı, açık rızaya bağlı)
 
-Kullanıcı açık rıza vererek Aile Takibi özelliğini başlatırsa, günlük özet (sigara sayısı ve hedef, son 7 günün sayıları, hedef serisi, atlatılan istek sayısı, kupon ve kumbara tutarı, stok sayımı sonucu) telefonda AES-256-GCM ile şifrelenerek Google Firebase (Firestore) sunucusuna gönderilir. Şifre anahtarı yalnızca kullanıcının ve QR kodu okuttuğu yakınının telefonunda bulunur; sunucu ve uygulama geliştiricisi içeriği okuyamaz. Konum, sigara saatleri, kilo, sağlık raporları, karbonmonoksit ölçümleri, öğün ve içecek kayıtları paylaşılmaz. Yakının gönderdiği destek mesajları da aynı şekilde şifrelenir. Kullanıcı paylaşımı istediği an durdurabilir; durdurulduğunda sunucudaki şifreli veriler silinir. Aile üyesi modunda hesap açılmaz, kimlik bilgisi istenmez.
+Kullanıcı açık rıza vererek Aile Takibi özelliğini başlatırsa, günlük özet (sigara sayısı ve hedef, son 7 günün sayıları, hedef serisi, atlatılan istek sayısı, kupon ve kumbara tutarı, stok sayımı sonucu) telefonda AES-256-GCM ile şifrelenerek Google Firebase (Firestore) sunucusuna gönderilir. Şifre anahtarı yalnızca kullanıcının ve aile kodunu girdiği yakınının telefonunda bulunur; sunucu ve uygulama geliştiricisi içeriği okuyamaz. Konum, sigara saatleri, kilo, sağlık raporları, karbonmonoksit ölçümleri, öğün ve içecek kayıtları paylaşılmaz. Yakının gönderdiği destek mesajları da aynı şekilde şifrelenir. Kullanıcı paylaşımı istediği an durdurabilir; durdurulduğunda sunucudaki şifreli veriler silinir. Aile üyesi modunda hesap açılmaz, kimlik bilgisi istenmez.
 
 ## 7. Reklam ve veri satışı
 
