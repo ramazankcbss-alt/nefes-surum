@@ -40,12 +40,25 @@
   <div class="ust"><div class="marka">NEFES</div><div class="not">Sigarasız yaşam · Destek Ol</div></div>
 
   <div class="kart" id="giris">
+    <div style="font-size:15px;font-weight:800;color:var(--ana)">Bir paket sigara, bir iyilik olsun.</div>
     <h1 id="baslik">Bir yakının sigarayı bırakıyor</h1>
     <p id="aciklama">İçmediği her sigarayı bir iyiliğe dönüştürmek istiyor. Ona destek olmak için aşağıdaki kurumlardan birine dilediğin tutarda bağış yapabilirsin.</p>
     <div class="sayilar">
       <div class="sayi"><b id="icilmeyen">–</b><span>içilmeyen sigara</span></div>
       <div class="sayi"><b id="gun">–</b><span>gündür programda</span></div>
     </div>
+  </div>
+
+  <div class="kart" id="mesajKart">
+    <b>💬 Ona bir destek mesajı bırak</b>
+    <p class="not">Ücretsiz ve tek dokunuş. Bağış yapmak zorunda değilsin; bir mesaj bile onun için çok değerli.</p>
+    <div id="mesajlar"></div>
+    <button class="tam" id="mesajGonder">Mesajımı gönder</button>
+  </div>
+
+  <div class="kart" style="background:transparent;border:none;padding:4px 18px">
+    <b>🌱 İstersen sen de bir iyiliğe katıl</b>
+    <p class="not">Tamamen isteğe bağlı.</p>
   </div>
 
   <div class="kart gizli" id="oneri" style="background:#FFFBEB;border-color:#FDE68A">
@@ -65,8 +78,7 @@
 
   <div class="kart gizli" id="onay">
     <b>Bağışını yaptın mı?</b>
-    <p class="not">İstersen ona bir destek mesajı da bırak:</p>
-    <div id="mesajlar"></div>
+    <p class="not">Yukarıdan bir destek mesajı seçtiysen o da iletilir.</p>
     <button class="tam" id="yaptim">Bağışımı yaptım</button>
     <p class="not" id="hata"></p>
   </div>
@@ -113,11 +125,13 @@
   var token = /^[A-Za-z0-9_-]{22}$/.test(v.k || '') ? v.k : null;
   function yaz(id, t) { document.getElementById(id).textContent = t; }
 
+  var kendiAd = null;
+  KURUMLAR.forEach(function (k) { if (k.id === v.b) kendiAd = k.ad; });
   yaz('baslik', ad + ' sigarayı bırakıyor');
   if (v.t === 't') {
-    yaz('aciklama', ad + ' bugün bir sigara içti ama vazgeçmedi: bunu bir iyiliğe dönüştürmek istiyor. Ona destek olmak için aşağıdaki kurumlardan birine bir paket sigara bedeli kadar bağış yapabilirsin.');
+    yaz('aciklama', ad + ' bugün bir sigara içti ama vazgeçmedi' + (kendiAd ? ' ve karşılığında ' + kendiAd + ' aracılığıyla bir iyilik yaptı.' : '.') + ' Ona bir destek mesajı bırakabilir, istersen sen de bir iyiliğe katılabilirsin.');
   } else {
-    yaz('aciklama', ad + ', içmediği her sigarayı bir iyiliğe dönüştürmek istiyor. Ona destek olmak için aşağıdaki kurumlardan birine bir paket sigara bedeli kadar bağış yapabilirsin.');
+    yaz('aciklama', (kendiAd ? ad + ', içmediği sigaraların parasıyla ' + kendiAd + ' aracılığıyla bir iyiliğe vesile oldu.' : ad + ', içmediği her sigarayı bir iyiliğe dönüştürmek istiyor.') + ' Ona bir destek mesajı bırakabilir, istersen sen de bir iyiliğe katılabilirsin.');
   }
   yaz('icilmeyen', typeof v.n === 'number' ? v.n.toLocaleString('tr-TR') : '–');
   yaz('gun', typeof v.g === 'number' ? String(v.g) : '–');
@@ -165,33 +179,41 @@
     mesajKutu.appendChild(b);
   });
 
-  document.getElementById('yaptim').addEventListener('click', function () {
-    var btn = this;
-    if (!secilen) return;
-    btn.disabled = true;
-    function bitir() {
-      document.getElementById('onay').classList.add('gizli');
-      document.getElementById('kurumlar').classList.add('gizli');
-      yaz('tesekkurMetni', secilen.ad + ' aracılığıyla bir iyiliğe vesile oldun. Aynı zamanda ' + ad +
-        '’a sigarayı bırakma yolunda yalnız olmadığını gösterdin. Desteğin ona iletildi.');
-      document.getElementById('tesekkur').classList.remove('gizli');
-    }
+  function gonder(kurumId, bitir) {
     if (!token) { bitir(); return; }
     var belge = 'projects/' + PROJE + '/databases/(default)/documents/destek/' + token;
     var alanlar = { t: { integerValue: String(Date.now()) } };
     var maske = ['t'];
     if (mesaj !== null) { alanlar.m = { integerValue: String(mesaj) }; maske.push('m'); }
-    var govde = { writes: [{
-      update: { name: belge, fields: alanlar },
-      updateMask: { fieldPaths: maske },
-      updateTransforms: [
-        { fieldPath: 'n', increment: { integerValue: '1' } },
-        { fieldPath: 'k_' + secilen.id, increment: { integerValue: '1' } }
-      ]
-    }] };
+    var art = [{ fieldPath: 'n', increment: { integerValue: '1' } }];
+    if (kurumId) art.push({ fieldPath: 'k_' + kurumId, increment: { integerValue: '1' } });
+    var govde = { writes: [{ update: { name: belge, fields: alanlar }, updateMask: { fieldPaths: maske }, updateTransforms: art }] };
     fetch('https://firestore.googleapis.com/v1/projects/' + PROJE + '/databases/(default)/documents:commit?key=' + ANAHTAR, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(govde)
     }).then(function () { bitir(); }).catch(function () { bitir(); });
+  }
+  var mesajGitti = false;
+  document.getElementById('mesajGonder').addEventListener('click', function () {
+    var btn = this;
+    if (mesaj === null) { btn.textContent = 'Önce bir mesaj seçin'; return; }
+    btn.disabled = true;
+    gonder(null, function () {
+      mesajGitti = true;
+      btn.textContent = 'Mesajın iletildi. Teşekkürler!';
+    });
+  });
+  document.getElementById('yaptim').addEventListener('click', function () {
+    var btn = this;
+    if (!secilen) return;
+    btn.disabled = true;
+    if (mesajGitti) mesaj = null;
+    gonder(secilen.id, function () {
+      document.getElementById('onay').classList.add('gizli');
+      document.getElementById('kurumlar').classList.add('gizli');
+      yaz('tesekkurMetni', secilen.ad + ' aracılığıyla bir iyiliğe vesile oldun. Aynı zamanda ' + ad +
+        '\u2019a sigarayı bırakma yolunda yalnız olmadığını gösterdin.');
+      document.getElementById('tesekkur').classList.remove('gizli');
+    });
   });
 })();
 </script>
