@@ -23,7 +23,7 @@ Bu bilgiler, uygulama içindeki **Ayarlar → Tüm verileri sil** ile veya uygul
 - **Konum:** Yalnızca kullanıcı "Sigara içildi" kaydı yaptığı anda bir kez alınır ve kayıtlı yerlere göre bir yer etiketi önermek için kullanılır. Her kayıtta koordinat değil, yalnızca etiket (Ev, İş yeri, Dışarıda) saklanır. Arka planda konum takibi yapılmaz.
 - **Kamera, galeri ve dosyalar:** Yalnızca kullanıcı rapor eklemek istediğinde kullanılır; seçilen dosya uygulamanın kendi alanına kopyalanır.
 - **Bildirimler:** Günlük değerlendirme, öğün ve su hatırlatmaları telefonda planlanır; sunucu kullanılmaz.
-- **İnternet:** Yalnızca aşağıdaki 3. ve 4. maddelerde belirtilen amaçlarla kullanılır.
+- **İnternet:** Yalnızca aşağıdaki 3, 4, 6a ve 6b maddelerinde belirtilen amaçlarla kullanılır.
 
 ## 3. İsimsiz kullanım istatistiği (isteğe bağlı)
 
@@ -31,7 +31,7 @@ Kullanıcı izin verirse uygulama, Google Firebase (Cloud Firestore, Avrupa böl
 
 ## 4. Güncelleme kontrolü
 
-Uygulama açıldığında yeni sürüm olup olmadığını GitHub üzerindeki herkese açık sürüm sayfasından kontrol eder. Bu sırada kullanıcıya ait hiçbir bilgi gönderilmez; teknik iletişim sırasında GitHub IP adresini görebilir.
+Google Play'den kurulan sürüm güncellemeleri yalnızca Google Play üzerinden alır ve kendi başına güncelleme kontrolü yapmaz. Doğrudan dağıtılan sürüm ise açıldığında yeni sürüm olup olmadığını GitHub üzerindeki herkese açık sürüm sayfasından kontrol eder. Bu sırada kullanıcıya ait hiçbir bilgi gönderilmez; teknik iletişim sırasında GitHub IP adresini görebilir.
 
 ## 5. Rapor okuma
 
