@@ -48,6 +48,15 @@
     </div>
   </div>
 
+  <div class="kart gizli" id="oneri" style="background:#FFFBEB;border-color:#FDE68A">
+    <b>Önerilen bağış: 1 paket sigara bedeli</b>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+      <span id="tutar" style="font-size:30px;font-weight:800;color:#B45309"></span>
+      <button class="ikincil" id="kopyala" style="margin:0">Tutarı kopyala</button>
+    </div>
+    <p class="not">Kurumun sitesinde tutar alanına bu rakamı yazabilir ya da dilediğin tutarı seçebilirsin.</p>
+  </div>
+
   <div class="kart" id="kurumlar">
     <b>Bir kurum seç</b>
     <p class="not">Bağış, kurumun kendi resmî sitesinde yapılır. Nefes para toplamaz, ödeme bilgisi görmez.</p>
@@ -106,12 +115,22 @@
 
   yaz('baslik', ad + ' sigarayı bırakıyor');
   if (v.t === 't') {
-    yaz('aciklama', ad + ' bugün bir sigara içti ama vazgeçmedi: bunu bir iyiliğe dönüştürmek istiyor. Ona destek olmak için aşağıdaki kurumlardan birine dilediğin tutarda bağış yapabilirsin.');
+    yaz('aciklama', ad + ' bugün bir sigara içti ama vazgeçmedi: bunu bir iyiliğe dönüştürmek istiyor. Ona destek olmak için aşağıdaki kurumlardan birine bir paket sigara bedeli kadar bağış yapabilirsin.');
   } else {
-    yaz('aciklama', ad + ', içmediği her sigarayı bir iyiliğe dönüştürmek istiyor. Ona destek olmak için aşağıdaki kurumlardan birine dilediğin tutarda bağış yapabilirsin.');
+    yaz('aciklama', ad + ', içmediği her sigarayı bir iyiliğe dönüştürmek istiyor. Ona destek olmak için aşağıdaki kurumlardan birine bir paket sigara bedeli kadar bağış yapabilirsin.');
   }
   yaz('icilmeyen', typeof v.n === 'number' ? v.n.toLocaleString('tr-TR') : '–');
   yaz('gun', typeof v.g === 'number' ? String(v.g) : '–');
+  var paket = (typeof v.f === 'number' && v.f > 0 && v.f < 100000) ? Math.round(v.f) : 0;
+  if (paket) {
+    yaz('tutar', paket.toLocaleString('tr-TR') + ' ₺');
+    document.getElementById('oneri').classList.remove('gizli');
+    document.getElementById('kopyala').addEventListener('click', function () {
+      var b = this;
+      function tamam() { b.textContent = 'Kopyalandı'; }
+      if (navigator.clipboard) { navigator.clipboard.writeText(String(paket)).then(tamam, tamam); } else { tamam(); }
+    });
+  }
   if (v.d) yaz('davetSatiri', 'Davet kodu: ' + String(v.d).slice(0, 12));
 
   var secilen = null, mesaj = null;
