@@ -1,6 +1,6 @@
 # Nefes – Gizlilik Politikası
 
-Son güncelleme: 18 Kasım 2026
+Son güncelleme: 20 Kasım 2026
 
 Nefes, sigarayı kademeli olarak azaltıp bırakmak isteyen kişiler için hazırlanmış kişisel bir takip uygulamasıdır. Bu politika, uygulamanın hangi bilgileri nasıl işlediğini açıklar. Uygulama 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) dikkate alınarak, mümkün olan en az veriyle çalışacak şekilde tasarlanmıştır.
 
@@ -8,19 +8,18 @@ Nefes, sigarayı kademeli olarak azaltıp bırakmak isteyen kişiler için hazı
 
 Aşağıdaki bilgiler **yalnızca kullanıcının telefonunda** saklanır; geliştiriciye veya herhangi bir sunucuya gönderilmez:
 
-- Günlük sigara kayıtları (saat, kullanıcının seçtiği yer etiketi, isteğe bağlı tetikleyici), atlatılan istekler ve ikram edilen sigara sayısı
+- Günlük sigara sayıları (anlık kayıtlarda saat bilgisi; toplu girişte yalnızca adet), atlatılan istekler, ikram edilen ve ikram alınan sigara sayıları
 - Öğün, çay, kahve ve su kayıtları
 - Haftalık kilo bilgisi ve başlangıç bilgileri (günlük tüketim, bırakma günü, paket fiyatı)
 - Sigara alım ve stok kayıtları
 - Kullanıcının eklediği sağlık raporları (fotoğraf veya belge) ve bu raporlardan telefonda okunan değerler
-- Kullanıcının kaydettiği "Ev" ve "İş yeri" konumları
 - Uygulama ayarları ve davet kodu
 
 Bu bilgiler, uygulama içindeki **Ayarlar → Tüm verileri sil** ile veya uygulama kaldırılarak kalıcı olarak silinebilir.
 
 ## 2. İzinler ve kullanım amaçları
 
-- **Konum:** Yalnızca kullanıcı "Sigara içildi" kaydı yaptığı anda bir kez alınır ve kayıtlı yerlere göre bir yer etiketi önermek için kullanılır. Her kayıtta koordinat değil, yalnızca etiket (Ev, İş yeri, Dışarıda) saklanır. Arka planda konum takibi yapılmaz.
+- **Konum:** Uygulama konum izni istemez ve konum bilgisi işlemez. Önceki sürümlerde telefonda saklanan "Ev" ve "İş yeri" koordinatları güncellemeyle birlikte silinir.
 - **Kamera, galeri ve dosyalar:** Yalnızca kullanıcı rapor eklemek istediğinde kullanılır; seçilen dosya uygulamanın kendi alanına kopyalanır.
 - **Bildirimler:** Günlük değerlendirme, öğün ve su hatırlatmaları telefonda planlanır; sunucu kullanılmaz.
 - **İnternet:** Yalnızca aşağıdaki 3, 4, 6a ve 6b maddelerinde belirtilen amaçlarla kullanılır.
